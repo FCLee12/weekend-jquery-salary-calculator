@@ -73,6 +73,8 @@ function emptyInputs() {
 function render() {
     console.log( 'render is running' );
 
+    /* starting point is the headerRow, navigating from there
+    you can target only the siblings and remove them to clear the board */
     $('#tableHeader').siblings().remove();
     
     for( let employee of employees ){
@@ -92,3 +94,7 @@ function render() {
         `)
     }
 }
+
+// To-Do: Create a Function to calculate Monthly Costs using object.annualSalary of each employee added
+    //could be added to render for loop
+    //REMEMBER Annual Salary divided by 12 will get you the monthly cost
