@@ -52,6 +52,9 @@ function addEmployee() {
     // console.log( employees );
         //confirmed newEmployee is being pushed to employees array
 
+    // renders new table row
+    render()
+
 
     // empties input fields    
     emptyInputs();
@@ -68,5 +71,24 @@ function emptyInputs() {
 
 // render function to create table row for a new employee
 function render() {
+    console.log( 'render is running' );
 
+    $('#tableHeader').siblings().remove();
+    
+    for( let employee of employees ){
+        console.log( 'This is an employee:', employee );
+
+        $('#tableHeader').after(`
+            <tr>
+                <td>${employee.firstName}</td>
+                <td>${employee.lastName}</td>
+                <td>${employee.id}</td>
+                <td>${employee.title}</td>
+                <td>${employee.annualSalary}</td>
+                <td>
+                    <button id='deleteBtn'>Delete</button>
+                </td>
+            </tr>
+        `)
+    }
 }
