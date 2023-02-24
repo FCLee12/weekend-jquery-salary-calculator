@@ -51,4 +51,22 @@ function addEmployee() {
     // console.log global employees array
     // console.log( employees );
         //confirmed newEmployee is being pushed to employees array
+
+
+    // empties input fields    
+    emptyInputs();
+}
+
+// function to empty input fields
+function emptyInputs() {
+    $( '#firstName' ).val( '' );
+    $( '#lastName' ).val( '' );
+    $( '#idNumber' ).val( '' );
+    $( '#jobTitle' ).val( '' );
+    $( '#annualSalary' ).val( '' );
+}
+
+// render function to create table row for a new employee
+function render() {
+
 }
