@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="main.css" rel="stylesheet" >
     <script src="jquery-3.6.3.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" charset="utf-8"></script>
     <title>jQuery Salary Calculator</title>
 </head>
 <body>
@@ -16,11 +16,12 @@
     <main>
         <h2>Add Employee</h2>
         <div id="inputForm">
-            <input type="text" placeholder="First Name">
-            <input type="text" placeholder="Last Name">
-            <input type="text" placeholder="ID">
-            <input type="text" placeholder="Title">
-            <input type="text" placeholder="Annual Salary">
+            <input id="firstName" type="text" placeholder="First Name">
+            <input id="lastName" type="text" placeholder="Last Name">
+            <input id="idNumber" type="number" placeholder="ID">
+            <input id="jobTitle" type="text" placeholder="Title">
+            <input id="annualSalary" type="number" placeholder="Annual Salary">
+            <button id="addEmployeeBtn">Submit</button>
         </div>
     </main>
 </body>
