@@ -114,7 +114,7 @@ function render() {
 
     // renders the Monthly Cost Amount
     $('#displayCost').append(`
-        <h2>Monthly Cost: $${monthlyCostFormatted}</h2>
+        <h2>Total Monthly: $${monthlyCostFormatted}</h2>
     `)
 }
 
@@ -132,12 +132,13 @@ function monthlyCostCalc( employee ) {
             // I have no idea how this works though: .replace(/[^0-9.-]+/g,"")
         // since I'm using the '/' it should auto swap the result to a number
         // Math.round to round to the nearest integer
-    let monthlyCost = Math.round( Number( employee.annualSalary.replace(/[^0-9.-]+/g,"") )/12 )
+    let monthlyCost = Number( employee.annualSalary.replace(/[^0-9.-]+/g,"") )/12;
     // console.log( 'this is monthlyCost in the calc:', monthlyCost );
         //confirmed that result is a number and logs okay
 
     // creates property monthlyPay to the employee object and sets the value to monthlyCost
-    employee.monthlyPay = monthlyCost;
+        // will be useful when removing the object and employee cost from monthly total
+    employee.monthlyPay = Number(monthlyCost.toFixed(2));
     // console.log( employee );
         //confirmed that employee object holds new monthlyPay property and value properly
     
