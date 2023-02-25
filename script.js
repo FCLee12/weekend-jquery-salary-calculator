@@ -102,6 +102,9 @@ function render() {
                     <button id='deleteBtn'>Delete</button>
                 </td>
             </tr>
+            <tr>
+                <th>White Space</th>
+            </tr>
         `)
 
         // Adds another property, uses the index as a unique identifier in each employee object
@@ -127,8 +130,10 @@ function render() {
     $('#displayCost').empty();
 
     // renders the Total Monthly Amount
-    $('#displayCost').append(`
-        <h2>Total Monthly: $${monthlyCostFormatted}</h2>
+    $('#displayZone').next().html(`
+        <div id="displayCost">
+            <h2>Total Monthly: $${monthlyCostFormatted}</h2>
+        </div>
     `)
 
     // turns the display <div> for the total monthly cost background red if total is > $20000
