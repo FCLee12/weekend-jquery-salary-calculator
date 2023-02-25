@@ -43,12 +43,12 @@ function addEmployee() {
         lastName: employeeLastName,
         id: employeeIdNumber,
         title: employeeJobTitle,
-        annualSalary: new Intl.NumberFormat('en-US').format(employeeAnnualSalary),
+        annualSalary: employeeAnnualSalary,
         unique: 0
     }
 
     // console log new employee object to make sure it's working
-    // console.log( newEmployee );
+    console.log( newEmployee );
         // confirmed object is working correctly
     
     // push the newEmployee object into the employees array
@@ -84,12 +84,12 @@ function render() {
     $('#tableHeader').siblings().remove();
     
     let monthlyCost = 0;
-
+    
     // deconstructed form of a for of loop? don't fully understand it but it works
         // requires the [i,  ] and .entries() to work properly
     for( let [i, employee] of employees.entries() ){
         console.log( 'This is an employee:', employee );
-        
+        let formattedAnnualSalary = new Intl.NumberFormat('en-US').format(employee.annualSalary)
 
         $('#tableHeader').after(`
             <tr>
@@ -97,7 +97,7 @@ function render() {
                 <td>${employee.lastName}</td>
                 <td>${employee.id}</td>
                 <td>${employee.title}</td>
-                <td>$${employee.annualSalary}</td>
+                <td>$${formattedAnnualSalary}</td>
                 <td>
                     <button id='deleteBtn'>Delete</button>
                 </td>
@@ -178,12 +178,83 @@ function removeEmployee() {
     console.log( 'removeEmployee is running' );
 
     // base model
-    $(this).parent().parent().remove();
+    // $(this).parent().parent().remove();
 
     // navigate from the button to the last property ( unique: index# )
         // once that text has been selected, you can splice it out at its index
         // ALT: create a new array and pass in all except the object at that index
     
-    // let indexToDelete = $(this).parent().siblings().data();
-    // console.log( indexToDelete );
+    let employeeFirstNameToDelete = $(this).parent().siblings().first().text();
+    let employeeLastNameToDelete = $(this).parent().siblings().nextAll().eq(0).text();
+    let employeeIdNumberToDelete = $(this).parent().siblings().nextAll().eq(1).text();
+    let employeeJobTitleToDelete = $(this).parent().siblings().nextAll().eq(2).text();
+    let employeeAnnualSalaryToDelete = $(this).parent().siblings().last().text();
+    console.log( employeeFirstNameToDelete );
+    console.log( employeeLastNameToDelete );
+    console.log( employeeIdNumberToDelete );
+    console.log( employeeJobTitleToDelete );
+    console.log( employeeAnnualSalaryToDelete );
+    // used to test change before making change below
+    // console.log( Number( employeeAnnualSalaryToDelete.replace(/[^0-9.-]+/g,"") ) );
+
+
+    let safeEmployees = [];
+
+    for(let employee of employees  ) {
+        if( employeeFirstNameToDelete !== employee.firstName ){
+            safeEmployees.push( employee );
+        }
+    }
+
+    // attempt at adding more specification checks to only target the object
+        // and none of the ones sharing the same value
+        // couldn't get it to work
+
+    // used to check progress
+    // console.log( 'safeEmployees:', safeEmployees );
+    // console.log( 'employees:', employees );
+
+    // for(let employee of employees  ) {
+    //     if( employeeLastNameToDelete !== employee.lastName ){
+    //         safeEmployees.push( employee );
+    //     }
+    // }
+
+    // used to check progress
+    // console.log( 'safeEmployees:', safeEmployees );
+    // console.log( 'employees:', employees );
+
+    // for(let employee of employees  ) {
+    //     if( employeeIdNumberToDelete !== employee.id ){
+    //         safeEmployees.push( employee );
+    //     }
+    // }
+
+    // used to check progress
+    // console.log( 'safeEmployees:', safeEmployees );
+    // console.log( 'employees:', employees );
+
+    // for(let employee of employees  ) {
+    //     if( employeeJobTitleToDelete !== employee.title ){
+    //         safeEmployees.push( employee );
+    //     }
+    // }
+
+    // used to check progress
+    // console.log( 'safeEmployees:', safeEmployees );
+    // console.log( 'employees:', employees );
+
+    // for(let employee of employees  ) {
+    //     // .replace(/[^0-9.-]+/g,"") required to convert from currency to string
+    //     if( employeeAnnualSalaryToDelete.replace(/[^0-9.-]+/g,"") !== employee.annualSalary ){
+    //         console.log( employee.annualSalary );
+    //         safeEmployees.push( employee );
+    //     }
+    // }
+
+    console.log( 'after push employees:', employees );
+
+    employees = safeEmployees;
+
+    render();
 }
