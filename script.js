@@ -14,6 +14,7 @@ function onReady() {
     $('#addEmployeeBtn').on('click', addEmployee);
 }
 
+// function that happens on a submit button click
 function addEmployee() {
     console.log( 'addEmployee is running' );
 
@@ -96,7 +97,6 @@ function render() {
             </tr>
         `)
 
-        console.log(  );
         monthlyCostCalc( employee );
         
         // should include the new monthlyPay property
@@ -113,7 +113,7 @@ function render() {
     // empties the <div> to avoid duplicate displaying
     $('#displayCost').empty();
 
-    // renders the Monthly Cost Amount
+    // renders the Total Monthly Amount
     $('#displayCost').append(`
         <h2>Total Monthly: $${monthlyCostFormatted}</h2>
     `)
@@ -149,5 +149,12 @@ function monthlyCostCalc( employee ) {
     employee.monthlyPay = Number(monthlyCost.toFixed(2));
     // console.log( employee );
         //confirmed that employee object holds new monthlyPay property and value properly
+    
+}
+
+// function to remove the employee object from the employees array
+    // subtract the monthlyCost from the Total Monthly total
+    // and re-render the DOM
+function removeEmployee() {
     
 }
