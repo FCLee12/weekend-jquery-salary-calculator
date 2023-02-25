@@ -110,12 +110,18 @@ function render() {
     let monthlyCostFormatted = new Intl.NumberFormat('en-US').format(monthlyCost);
     console.log( monthlyCostFormatted );
 
+    // empties the <div> to avoid duplicate displaying
     $('#displayCost').empty();
 
     // renders the Monthly Cost Amount
     $('#displayCost').append(`
         <h2>Total Monthly: $${monthlyCostFormatted}</h2>
     `)
+
+    // turns the display <div> for the total monthly cost background red if total is > $20000
+    if( monthlyCost > 20000 ) {
+        $('#displayCost').css( 'background-color', 'red' )
+    }
 }
 
 // To-Do: Create a Function to calculate Monthly Costs using object.annualSalary of each employee added
@@ -138,6 +144,8 @@ function monthlyCostCalc( employee ) {
 
     // creates property monthlyPay to the employee object and sets the value to monthlyCost
         // will be useful when removing the object and employee cost from monthly total
+        // .toFixed() limits the number of decimal places, the 2 indicates two decimal place limit
+            // Number() required because .toFixed() returns a string value
     employee.monthlyPay = Number(monthlyCost.toFixed(2));
     // console.log( employee );
         //confirmed that employee object holds new monthlyPay property and value properly
