@@ -84,7 +84,7 @@ function render() {
     $('#tableHeader').siblings().remove();
     
     let monthlyCost = 0;
-    
+
     // deconstructed form of a for of loop? don't fully understand it but it works
         // requires the [i,  ] and .entries() to work properly
     for( let [i, employee] of employees.entries() ){
@@ -102,9 +102,6 @@ function render() {
                     <button id='deleteBtn'>Delete</button>
                 </td>
             </tr>
-            <tr>
-                <th>White Space</th>
-            </tr>
         `)
 
         // Adds another property, uses the index as a unique identifier in each employee object
@@ -121,6 +118,12 @@ function render() {
         
         monthlyCost += employee.monthlyPay;
     }
+
+    $('#tableHeader').parent().last().append(`
+    <tr>
+        <th colspan="100%">&nbsp;</th>
+    </tr>
+    `)
 
     // switches monthlyCost into USD formatting
     let monthlyCostFormatted = new Intl.NumberFormat('en-US').format(monthlyCost);
