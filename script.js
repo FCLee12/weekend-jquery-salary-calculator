@@ -12,6 +12,10 @@ function onReady() {
 
     // listener for 'addEmployeeBtn' Submit Button
     $('#addEmployeeBtn').on('click', addEmployee);
+
+    // listener for 'deleteBtn' Delete button
+        // has to target the parent table since it's dynamically generated
+    $('#renderTable').on('click', '#deleteBtn',removeEmployee);
 }
 
 // function that happens on a submit button click
@@ -39,7 +43,8 @@ function addEmployee() {
         lastName: employeeLastName,
         id: employeeIdNumber,
         title: employeeJobTitle,
-        annualSalary: new Intl.NumberFormat('en-US').format(employeeAnnualSalary)
+        annualSalary: new Intl.NumberFormat('en-US').format(employeeAnnualSalary),
+        unique: 0
     }
 
     // console log new employee object to make sure it's working
@@ -80,7 +85,9 @@ function render() {
     
     let monthlyCost = 0;
 
-    for( let employee of employees ){
+    // deconstructed form of a for of loop? don't fully understand it but it works
+        // requires the [i,  ] and .entries() to work properly
+    for( let [i, employee] of employees.entries() ){
         console.log( 'This is an employee:', employee );
         
 
@@ -96,6 +103,12 @@ function render() {
                 </td>
             </tr>
         `)
+
+        // Adds another property, uses the index as a unique identifier in each employee object
+            // since it's unique, when you select for deletion you only target that one and not all others with a shared property value
+        employee.unique = i;
+        console.log( employee );
+            // confirmed 
 
         monthlyCostCalc( employee );
         
@@ -155,6 +168,22 @@ function monthlyCostCalc( employee ) {
 // function to remove the employee object from the employees array
     // subtract the monthlyCost from the Total Monthly total
     // and re-render the DOM
+// added a property inside each object to track its index
+    //I can use that to pull an individual object and remove it
+// may require a loop with nested conditional
+    // select find the firstName value view the button click
+    // take that value to move all employee objects with matching firstName properties into a separate array
+    // from that array with matching firstName, search 
 function removeEmployee() {
+    console.log( 'removeEmployee is running' );
+
+    // base model
+    $(this).parent().parent().remove();
+
+    // navigate from the button to the last property ( unique: index# )
+        // once that text has been selected, you can splice it out at its index
+        // ALT: create a new array and pass in all except the object at that index
     
+    // let indexToDelete = $(this).parent().siblings().data();
+    // console.log( indexToDelete );
 }
