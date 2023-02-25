@@ -38,7 +38,7 @@ function addEmployee() {
         lastName: employeeLastName,
         id: employeeIdNumber,
         title: employeeJobTitle,
-        annualSalary: employeeAnnualSalary
+        annualSalary: new Intl.NumberFormat('en-US').format(employeeAnnualSalary)
     }
 
     // console log new employee object to make sure it's working
@@ -77,8 +77,11 @@ function render() {
     you can target only the siblings and remove them to clear the board */
     $('#tableHeader').siblings().remove();
     
+    let monthlyCost = 0;
+
     for( let employee of employees ){
         console.log( 'This is an employee:', employee );
+        
 
         $('#tableHeader').after(`
             <tr>
@@ -86,15 +89,56 @@ function render() {
                 <td>${employee.lastName}</td>
                 <td>${employee.id}</td>
                 <td>${employee.title}</td>
-                <td>${employee.annualSalary}</td>
+                <td>$${employee.annualSalary}</td>
                 <td>
                     <button id='deleteBtn'>Delete</button>
                 </td>
             </tr>
         `)
+
+        console.log(  );
+        monthlyCostCalc( employee );
+        
+        // should include the new monthlyPay property
+        // console.log( employee );
+            //confirmed that employee object has monthlyPay property
+        
+        monthlyCost += employee.monthlyPay;
     }
+
+    // switches monthlyCost into USD formatting
+    let monthlyCostFormatted = new Intl.NumberFormat('en-US').format(monthlyCost);
+    console.log( monthlyCostFormatted );
+
+    $('#displayCost').empty();
+
+    // renders the Monthly Cost Amount
+    $('#displayCost').append(`
+        <h2>Monthly Cost: $${monthlyCostFormatted}</h2>
+    `)
 }
 
 // To-Do: Create a Function to calculate Monthly Costs using object.annualSalary of each employee added
     //could be added to render for loop
     //REMEMBER Annual Salary divided by 12 will get you the monthly cost
+
+    // should take in an employee object as a parameter
+function monthlyCostCalc( employee ) {
+    console.log( 'monthlyCostCalc running' );
+
+
+    // grab the annual salary property from the object, divide it by 12 (for each month) and store it in a variable
+        // Number( employee.annualSalary.replace(/[^0-9.-]+/g,"") ) is to change the annualSalary back into a number instead of currency
+            // I have no idea how this works though: .replace(/[^0-9.-]+/g,"")
+        // since I'm using the '/' it should auto swap the result to a number
+        // Math.round to round to the nearest integer
+    let monthlyCost = Math.round( Number( employee.annualSalary.replace(/[^0-9.-]+/g,"") )/12 )
+    // console.log( 'this is monthlyCost in the calc:', monthlyCost );
+        //confirmed that result is a number and logs okay
+
+    // creates property monthlyPay to the employee object and sets the value to monthlyCost
+    employee.monthlyPay = monthlyCost;
+    // console.log( employee );
+        //confirmed that employee object holds new monthlyPay property and value properly
+    
+}
